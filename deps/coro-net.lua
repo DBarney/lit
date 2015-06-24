@@ -69,10 +69,10 @@ function exports.connect(options)
     res, err = coroutine.yield()
     if not res then return nil, err end
     socket = uv.new_tcp()
-    socket:connect(res[1].addr, res[1].port, makeCallback(options.timeout))
+    assert(socket:connect(res[1].addr, res[1].port, makeCallback(options.timeout)))
   else
     socket = uv.new_pipe(false)
-    socket:connect(host, makeCallback(options.timeout))
+    assert(socket:connect(host, makeCallback(options.timeout)))
   end
   success, err = coroutine.yield()
   if not success then return nil, err end
